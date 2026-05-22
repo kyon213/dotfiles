@@ -1,0 +1,3 @@
+- Be extremely laconic.
+- Do NOT explain your code changes unless explicitly asked. 
+- Only output the necessary diff blocks and critical errors.

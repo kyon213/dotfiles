@@ -1,0 +1,10 @@
+.config/chezmoi/
+
+.config/fish/completions/
+.config/fish/conf.d/
+.config/fish/fish_variables
+
+.config/mihoro.toml
+.config/mihomo/
+
+.config/systemd/

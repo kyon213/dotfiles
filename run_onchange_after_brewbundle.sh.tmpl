@@ -1,0 +1,25 @@
+#!/bin/bash
+# ==============================================================================
+# Chezmoi On-Change Trigger: Executed ONLY when Brewfile content changes.
+# ==============================================================================
+
+# Chezmoi Stateful Trigger:
+# This hash ensures that if dot_Brewfile is modified, this script's hash changes,
+# forcing Chezmoi to re-run this automation script during 'chezmoi apply'.
+# {{ include "dot_Brewfile" | sha256sum }}
+
+echo "🔄 [Chezmoi Detect] Changes detected in your Brewfile asset registry."
+echo "🎯 [Brew Bundle] Synchronizing and resolving package gaps in the background..."
+
+# Defensive Programming: Ensure brew is accessible within this script's subshell context
+if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+elif [[ -d "/opt/homebrew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv bash)"
+fi
+
+# Execute incremental bundle installation.
+# --no-lock prevents the creation of unnecessary local lockfiles.
+brew bundle --global
+
+echo "✨ [Brew Bundle] System software dependencies are now fully up to date!"
