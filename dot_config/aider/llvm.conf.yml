@@ -1,0 +1,54 @@
+#############
+# Main model:
+## Specify the model to use for the main chat
+model: deepseek/deepseek-v4-flash
+
+#################
+# Model settings:
+## Specify a file with aider model settings for unknown models
+model-settings-file: ~/.config/aider/.aider.model.settings.yml
+## Specify a file with context window and costs for unknown models
+model-metadata-file: ~/.config/aider/.aider.model.metadata.json
+## Add a model alias (can be used multiple times)
+alias:
+  - "flash:deepseek/deepseek-v4-flash"
+  - "pro:deepseek/deepseek-v4-pro"
+## Soft limit on tokens for chat history, after which summarization begins. If unspecified, defaults to the model's max_chat_history_tokens.
+max-chat-history-tokens: 8192
+
+#################
+# Cache settings:
+## Enable caching of prompts (default: False)
+cache-prompts: true
+## Number of times to ping at 5min intervals to keep prompt cache warm (default: 0)
+cache-keepalive-pings: 10
+
+###################
+# Repomap settings:
+## Suggested number of tokens to use for repo map, use 0 to disable
+map-tokens: 256
+## Control how often the repo map is refreshed. Options: auto, always, files, manual (default: auto)
+map-refresh: manual
+
+##################
+# Output settings:
+## Show diffs when committing changes (default: False)
+show-diffs: true
+
+###############
+# Git settings:
+## Enable/disable adding .aider* to .gitignore (default: True)
+gitignore: false
+## Enable/disable auto commit of LLM changes (default: True)
+auto-commits: false
+## Only consider files in the current subtree of the git repository
+subtree-only: true
+
+#################
+# Other settings:
+## Use VI editing mode in the terminal (default: False)
+vim: true
+## specify a read-only file (can be used multiple times)
+read: ~/.config/aider/rules.md
+## Specify the .env file to load (default: .env in git root)
+env-file: ~/.config/aider/.env
