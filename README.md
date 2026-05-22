@@ -1,2 +1,2 @@
-# dotfiles
-Personal dotfiles managed with chezmoi
+# Personal dotfiles
+Managed with [chezmoi](https://www.chezmoi.io/).

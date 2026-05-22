@@ -44,6 +44,6 @@ fi
 echo "🎯 [Homebrew Bundle] Resolving and installing core software via repository Brewfile..."
 
 # Dynamically query the active chezmoi source path to find your tracked Brewfile.
-brew bundle --file="$(chezmoi source-path)/dot_Brewfile"
+brew bundle --file="${CHEZMOI_SOURCE_DIR}/dot_Brewfile"
 
 echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."
