@@ -23,5 +23,5 @@
     is_heavy_workstation = {{ $is_heavy }}
     enable_blog_debug = {{ $enable_blog_debug }}
 
-    DEEPSEEK_API_KEY = {{ $deepseek_api_key }}
+    DEEPSEEK_API_KEY = {{ $deepseek_api_key | quote }}
     install_aider = {{ $install_aider }}
