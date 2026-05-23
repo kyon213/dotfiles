@@ -44,7 +44,9 @@ fi
 echo "🎯 [Homebrew Bundle] Resolving and installing core software via repository Brewfile..."
 
 # Dynamically query the active chezmoi source path to find your tracked Brewfile.
-brew bundle --file="${CHEZMOI_SOURCE_DIR}/dot_Brewfile"
+chezmoi execute-template < "${CHEZMOI_SOURCE_DIR}/dot_Brewfile.tmpl" > /tmp/Brewfile.rendered
+brew bundle --file="/tmp/Brewfile.rendered"
+rm -rf /tmp/Brewfile.rendered
 
 echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."
 
