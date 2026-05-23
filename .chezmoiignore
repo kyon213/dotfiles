@@ -7,4 +7,6 @@
 .config/mihoro.toml
 .config/mihomo/
 
+.config/nvim/lazy-lock.json
+
 .config/systemd/

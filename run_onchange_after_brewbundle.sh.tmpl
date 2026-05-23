@@ -4,9 +4,10 @@
 # ==============================================================================
 
 # Chezmoi Stateful Trigger:
-# This hash ensures that if dot_Brewfile is modified, this script's hash changes,
-# forcing Chezmoi to re-run this automation script during 'chezmoi apply'.
-# {{ include "dot_Brewfile" | sha256sum }}
+# We explicitly track the RENDERED local file rather than source content
+# to perfectly isolate cross-platform template variation. Once dot_Brewfile is
+# modified, Chezmoi will re-run this automation script during 'chezmoi apply'.
+# {{ stat (joinPath .chezmoi.homeDir ".Brewfile") | prs }}
 
 echo "🔄 [Chezmoi Detect] Changes detected in your Brewfile asset registry."
 echo "🎯 [Brew Bundle] Synchronizing and resolving package gaps in the background..."
