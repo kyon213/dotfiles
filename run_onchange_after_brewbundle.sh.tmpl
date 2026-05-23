@@ -7,7 +7,7 @@
 # We explicitly track the RENDERED local file rather than source content
 # to perfectly isolate cross-platform template variation. Once dot_Brewfile is
 # modified, Chezmoi will re-run this automation script during 'chezmoi apply'.
-# {{ stat (joinPath .chezmoi.homeDir ".Brewfile") | prs }}
+# {{ include (joinPath .chezmoi.homeDir ".Brewfile") | sha256sum }}
 
 echo "🔄 [Chezmoi Detect] Changes detected in your Brewfile asset registry."
 echo "🎯 [Brew Bundle] Synchronizing and resolving package gaps in the background..."
