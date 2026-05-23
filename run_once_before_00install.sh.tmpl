@@ -47,3 +47,20 @@ echo "🎯 [Homebrew Bundle] Resolving and installing core software via reposito
 brew bundle --file="${CHEZMOI_SOURCE_DIR}/dot_Brewfile"
 
 echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."
+
+# ------------------------------------------------------------------------------
+# 4. Standalone Binaries Layer: Install custom tools directly to ~/.local/bin
+# ------------------------------------------------------------------------------
+echo "🚀 [Binaries] Provisioning custom localized binary tools..."
+
+mkdir -p "${HOME}/.local/bin"
+
+{{ if .install_aider -}}
+echo "🤖 [Aider Config] Active installation enabled for this host."
+if [ ! -f "${HOME}/.local/bin/aider" ]; then
+    echo "🤖 [Aider] Installing Aider via official isolated shell script..."
+    curl -LsSf https://aider.chat/install.sh | sh
+else
+    echo "🤖 [Aider] Aider is already present at ~/.local/bin/aider. Skipping."
+fi
+{{ end -}}
