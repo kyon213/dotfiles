@@ -1,0 +1,25 @@
+brew "chezmoi"
+brew "fd"
+brew "fish"
+brew "fzf"
+brew "lazygit"
+brew "luarocks"
+brew "neovim"
+brew "ripgrep"
+brew "stylua"
+
+# ==============================================================================
+# Conditional Heavyweight Workstation Packages
+# ==============================================================================
+{{ if .is_heavy_workstation -}}
+brew "llvm"
+brew "lld"
+{{ end -}}
+
+# ==============================================================================
+# Conditional Blog Debugging Packages
+# ==============================================================================
+{{ if .enable_blog_debug -}}
+brew "gh"
+brew "hugo"
+{{ end -}}
