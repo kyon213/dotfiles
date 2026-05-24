@@ -3,19 +3,23 @@
 # These apply to all sessions, including scripts and non-interactive tasks.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+set -gx LANG en_US.UTF-8
+set -gx EDITOR nvim
+
 # Setup PATH, MANPATH, INFOPATH, and other variables
+if test -d "$HOME/.local/bin"
+    fish_add_path --global --move "$HOME/.local/bin"
+end
 if test -d /home/linuxbrew/.linuxbrew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
-
-set -gx LANG en_US.UTF-8
-set -gx EDITOR nvim
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Interactive Configurations
 # This block runs only when you are using the terminal manually.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if status is-interactive
+    fish_config theme choose catppuccin-mocha
 
     set -g fish_greeting
     set -g fish_key_bindings fish_vi_key_bindings
