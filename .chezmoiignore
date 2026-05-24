@@ -1,3 +1,16 @@
+# ==============================================================================
+# Chezmoi Ignore Registry
+# Files matching these patterns stay in the repo and won't deploy to $HOME.
+# ==============================================================================
+
+# Repository Metadata & Licensing
+README.md
+LICENSE
+
+# Package manager lock files or local development notes
+*.log
+
+# Local configuration files
 .config/chezmoi/
 
 .config/fish/completions/
