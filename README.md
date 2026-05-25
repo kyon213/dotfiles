@@ -25,14 +25,14 @@ and plugins ([tpm](https://github.com/tmux-plugins/tpm),
 [catppuccin](https://github.com/catppuccin/tmux)).
 - [neovim](https://github.com/neovim/neovim) bundled with
 [LazyVim](https://github.com/LazyVim/LazyVim) and personal modifications.
--- Enabled [LazyExtras](https://www.lazyvim.org/extras):
+  - Enabled [LazyExtras](https://www.lazyvim.org/extras):
 [clangd](https://www.lazyvim.org/extras/lang/clangd),
 [markdown](https://www.lazyvim.org/extras/lang/markdown).
--- 80 column highlighted.
--- [blink.cmp](https://github.com/saghen/blink.cmp) customised key mapping.
--- [catppuccin-latte](https://github.com/catppuccin/nvim) with transparent
+  - 80 column highlighted.
+  - [blink.cmp](https://github.com/saghen/blink.cmp) customised key mapping.
+  - [catppuccin-latte](https://github.com/catppuccin/nvim) with transparent
 background.
--- [lspconfig](https://github.com/neovim/nvim-lspconfig) with local
+  - [lspconfig](https://github.com/neovim/nvim-lspconfig) with local
 brew-installed clangd and basic setup.
 - [Aider](https://github.com/Aider-AI/aider) with
 [deepseek](https://www.deepseek.com/) customisations.
