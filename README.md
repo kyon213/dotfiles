@@ -12,6 +12,8 @@ chezmoi init --apply git@github.com:kyon213/dotfiles.git`
 
 ## Features
 
+### Packages
+
 - [git](https://github.com/git/git) configured with personal info and
 [git alias](https://github.com/GitAlias/gitalias).
 - [fish-shell](https://github.com/fish-shell/fish-shell) customised with
@@ -23,5 +25,11 @@ and plugins ([tpm](https://github.com/tmux-plugins/tpm),
 [catppuccin](https://github.com/catppuccin/tmux)).
 - [neovim](https://github.com/neovim/neovim) bundled with
 [LazyVim](https://github.com/LazyVim/LazyVim) and personal modifications.
+-- Enabled [LazyExtras](https://www.lazyvim.org/extras):
+[clangd](https://www.lazyvim.org/extras/lang/clangd),
+[markdown](https://www.lazyvim.org/extras/lang/markdown).
+-- 80 column highlighted.
+-- [catppuccin-latte](https://github.com/catppuccin/nvim) with transparent
+background.
 - [Aider](https://github.com/Aider-AI/aider) with
 [deepseek](https://www.deepseek.com/) customisations.
