@@ -19,8 +19,12 @@ require("lazy").setup({
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- LazyExtras
-    { import = "lazyvim.plugins.extras.lang.clangd" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
+    {{ if .is_heavy_workstation -}}
+      { import = "lazyvim.plugins.extras.lang.clangd" },
+    {{ end -}}
+    {{ if .enable_blog_debug -}}
+      { import = "lazyvim.plugins.extras.lang.markdown" },
+    {{ end -}}
     -- import/override with your plugins
     { import = "plugins" },
   },
