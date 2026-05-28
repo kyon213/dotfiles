@@ -26,6 +26,11 @@ if status is-interactive
 
     alias v='nvim'
     alias l='ls -lhtra'
+    alias reasonix='npx --yes reasonix'
+
+    {{ if .DEEPSEEK_API_KEY -}}
+    set -gx DEEPSEEK_API_KEY {{ .DEEPSEEK_API_KEY | quote }}
+    {{- end }}
 
     # alias proxy='eval $(mihoro proxy export); echo "Proxy On"'
     # 由于 mihoro proxy export 未做分行的 bug，需要暂时修改为
