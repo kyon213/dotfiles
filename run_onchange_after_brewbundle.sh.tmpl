@@ -14,9 +14,9 @@ echo "🎯 [Brew Bundle] Synchronizing and resolving package gaps in the backgro
 
 # Defensive Programming: Ensure brew is accessible within this script's subshell context
 if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
 elif [[ -d "/opt/homebrew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv bash)"
+  eval "$(/opt/homebrew/bin/brew shellenv bash)"
 fi
 
 # Execute incremental bundle installation.

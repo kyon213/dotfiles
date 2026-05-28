@@ -60,9 +60,9 @@ mkdir -p "${HOME}/.local/bin"
 {{ if .install_aider -}}
 echo "🤖 [Aider Config] Active installation enabled for this host."
 if [ ! -f "${HOME}/.local/bin/aider" ]; then
-    echo "🤖 [Aider] Installing Aider via official isolated shell script..."
-    curl -LsSf https://aider.chat/install.sh | sh
+  echo "🤖 [Aider] Installing Aider via official isolated shell script..."
+  curl -LsSf https://aider.chat/install.sh | sh
 else
-    echo "🤖 [Aider] Aider is already present at ~/.local/bin/aider. Skipping."
+  echo "🤖 [Aider] Aider is already present at ~/.local/bin/aider. Skipping."
 fi
-{{ end -}}
+{{- end }}
