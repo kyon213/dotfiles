@@ -23,3 +23,8 @@ LICENSE
 .config/nvim/lazy-lock.json
 
 .config/systemd/
+
+# LLVM research build configuration is only deployed to heavy workstations.
+{{ if not .is_heavy_workstation }}
+.config/llvm/
+{{ end }}

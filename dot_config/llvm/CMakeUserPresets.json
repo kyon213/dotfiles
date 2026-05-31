@@ -1,0 +1,120 @@
+{
+  "version": 10,
+  "$comment": "Install for a checkout: cd /path/to/llvm-project/llvm && test ! -e CMakeUserPresets.json && test ! -L CMakeUserPresets.json && ln -s \"$HOME/.config/llvm/CMakeUserPresets.json\" CMakeUserPresets.json. Configure with: cmake --preset research. Build the selected tools with: cmake --build --preset research-tools.",
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 31,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "research",
+      "displayName": "LLVM research build",
+      "$comment": "Configure the LLVM source tree with Ninja for source research, diagnostic output, and small backend experiments.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/../build-research",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {
+          "type": "STRING",
+          "value": "RelWithDebInfo",
+          "$comment": "Keep debug information while avoiding the size and runtime cost of a fully unoptimized Debug build."
+        },
+        "CMAKE_C_COMPILER": {
+          "type": "STRING",
+          "value": "clang",
+          "$comment": "Use the Clang C compiler found in the current PATH as the host compiler."
+        },
+        "CMAKE_CXX_COMPILER": {
+          "type": "STRING",
+          "value": "clang++",
+          "$comment": "Use the matching Clang C++ compiler found in the current PATH."
+        },
+        "LLVM_ENABLE_PROJECTS": {
+          "type": "STRING",
+          "value": "clang;lld",
+          "$comment": "Enable Clang and include lld source files in the compilation database without building lld by default."
+        },
+        "LLVM_TARGETS_TO_BUILD": {
+          "type": "STRING",
+          "value": "X86;AMDGPU;NVPTX",
+          "$comment": "Build only the host, AMDGPU, and PTX backends needed for the current research scope."
+        },
+        "LLVM_ENABLE_ASSERTIONS": {
+          "type": "BOOL",
+          "value": true,
+          "$comment": "Keep assertions and LLVM_DEBUG output enabled in the RelWithDebInfo build."
+        },
+        "LLVM_OPTIMIZED_TABLEGEN": {
+          "type": "BOOL",
+          "value": false,
+          "$comment": "Avoid a redundant unconstrained native TableGen sub-build in this RelWithDebInfo configuration."
+        },
+        "LLVM_PARALLEL_TABLEGEN_JOBS": {
+          "type": "STRING",
+          "value": "1",
+          "$comment": "Run one memory-intensive TableGen process at a time to prevent WSL OOM."
+        },
+        "LLVM_CCACHE_BUILD": {
+          "type": "BOOL",
+          "value": true,
+          "$comment": "Reuse compilation results through the installed ccache."
+        },
+        "LLVM_USE_LINKER": {
+          "type": "STRING",
+          "value": "mold",
+          "$comment": "Use mold to reduce LLVM link time and peak linker memory usage."
+        },
+        "LLVM_USE_SPLIT_DWARF": {
+          "type": "BOOL",
+          "value": true,
+          "$comment": "Store DWARF in separate files to reduce pressure during large links."
+        },
+        "LLVM_USE_RELATIVE_PATHS_IN_DEBUG_INFO": {
+          "type": "BOOL",
+          "value": true,
+          "$comment": "Use relative debug paths to improve ccache reuse and build-tree portability."
+        },
+        "LLVM_APPEND_VC_REV": {
+          "type": "BOOL",
+          "value": false,
+          "$comment": "Avoid relinking tools merely because the checked-out Git revision changed."
+        },
+        "LLVM_INCLUDE_EXAMPLES": {
+          "type": "BOOL",
+          "value": false,
+          "$comment": "Do not generate build targets for LLVM examples."
+        },
+        "LLVM_INCLUDE_BENCHMARKS": {
+          "type": "BOOL",
+          "value": false,
+          "$comment": "Do not generate build targets for LLVM benchmarks."
+        },
+        "LLVM_PARALLEL_COMPILE_JOBS": {
+          "type": "STRING",
+          "value": "2",
+          "$comment": "Limit concurrent compilations for the current WSL environment with about 4 GiB of RAM."
+        },
+        "LLVM_PARALLEL_LINK_JOBS": {
+          "type": "STRING",
+          "value": "1",
+          "$comment": "Run only one link job at a time to reduce the risk of swapping or OOM."
+        }
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "research-tools",
+      "displayName": "Build LLVM research tools",
+      "$comment": "Build only the tools needed for source and backend research; do not build the all target or the lld executable.",
+      "configurePreset": "research",
+      "targets": [
+        "llc",
+        "opt",
+        "llvm-mc",
+        "FileCheck",
+        "clang"
+      ]
+    }
+  ]
+}
