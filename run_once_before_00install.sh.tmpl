@@ -9,7 +9,7 @@ set -euo pipefail # Strict mode: Fail instantly if any command exits with a non-
 echo "🚀 [Bootstrap] Awakening the ultimate Chezmoi provisioning engine..."
 
 # ------------------------------------------------------------------------------
-# 1. OS Defensive Layer: For Linux environments, initialize base dependencies via Apt
+# 1. OS Defensive Layer: Initialize base dependencies via Apt
 # ------------------------------------------------------------------------------
 if [[ "$(uname)" == "Linux" ]]; then
   echo "📦 [Apt] Linux environment detected. Synchronizing system package repositories..."
@@ -23,16 +23,13 @@ fi
 # 2. Core Framework Layer: Verify and automatically install Homebrew if missing
 # ------------------------------------------------------------------------------
 if ! command -v brew &>/dev/null; then
-  echo "🍺 [Homebrew] Homebrew not found. Launching non-interactive automated installation..."
-  # This automatically triggers the official Homebrew installer shell script
+  echo "🍺 [Homebrew] Homebrew not found. Launching automated installation..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Environment anti-jitter: A freshly installed brew isn't on the current PATH yet.
   # We must force-inject the brew binary path into the current script shell execution context.
   if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-  elif [[ -d "/opt/homebrew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv bash)"
   fi
 else
   echo "🍺 [Homebrew] Homebrew is already present. Skipping base installation."
@@ -48,10 +45,32 @@ chezmoi execute-template < "${CHEZMOI_SOURCE_DIR}/dot_Brewfile.tmpl" > /tmp/Brew
 brew bundle --file="/tmp/Brewfile.rendered"
 rm -rf /tmp/Brewfile.rendered
 
-echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."
+# ------------------------------------------------------------------------------
+# 4. Node/NPM Global Sandbox Layer
+# ------------------------------------------------------------------------------
+{{ if .install_claude_code -}}
+echo "⚡ [NPM Setup] Auditing global runtime environment..."
+
+if ! command -v npm &>/dev/null; then
+  echo "❌ [NPM] Node/NPM execution engine not found. Ensure 'node' is declared in dot_Brewfile.tmpl!"
+  exit 1
+fi
+
+if [[ "$(npm config get prefix)" =~ ^/usr ]]; then
+  echo "⚠️ [NPM] Dangerous global prefix detected. Re-anchoring to Linuxbrew..."
+  npm config set prefix "/home/linuxbrew/.linuxbrew"
+fi
+
+if ! command -v claude &>/dev/null; then
+  echo "🤖 [Claude Code] Executing native global installation via isolated NPM..."
+  npm install -g @anthropic-ai/claude-code
+else
+  echo "🤖 [Claude Code] Claude Code is already managed under NPM global scope. Skipping."
+fi
+{{- end }}
 
 # ------------------------------------------------------------------------------
-# 4. Standalone Binaries Layer: Install custom tools directly to ~/.local/bin
+# 5. Standalone Binaries Layer: Install custom tools directly to ~/.local/bin
 # ------------------------------------------------------------------------------
 echo "🚀 [Binaries] Provisioning custom localized binary tools..."
 
@@ -66,3 +85,5 @@ else
   echo "🤖 [Aider] Aider is already present at ~/.local/bin/aider. Skipping."
 fi
 {{- end }}
+
+echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."

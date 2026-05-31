@@ -47,3 +47,5 @@ background.
 brew-installed clangd and basic setup.
 - [Aider](https://github.com/Aider-AI/aider) with
 [deepseek](https://www.deepseek.com/) customisations.
+- ~~[Reasonix](https://github.com/esengine/deepseek-reasonix) Promising but
+problematic (light mode terminal, configuration file location, etc.)~~

@@ -124,8 +124,8 @@ fi
 
 alias l='ls -lhtra'
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
+
 if ! echo ":$PATH:" | grep -Fq ":$HOME/.local/bin:"; then
   export PATH=$HOME/.local/bin:$PATH
 fi
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
