@@ -28,6 +28,10 @@ if status is-interactive
     alias l='ls -lhtra'
     alias reasonix='npx --yes reasonix'
 
+    if command -q fzf
+      fzf --fish | source
+    end
+
     {{ if .DEEPSEEK_API_KEY -}}
     set -gx DEEPSEEK_API_KEY {{ .DEEPSEEK_API_KEY | quote }}
     {{end -}}

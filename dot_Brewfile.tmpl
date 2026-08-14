@@ -15,6 +15,7 @@ brew "stylua"
 {{ if .is_heavy_workstation -}}
 brew "llvm"
 brew "lld"
+brew "mold"
 {{- end }}
 
 # ==============================================================================
@@ -23,4 +24,11 @@ brew "lld"
 {{ if .enable_blog_debug -}}
 brew "gh"
 brew "hugo"
+{{- end }}
+
+# ==============================================================================
+# Conditional Agent Packages
+# ==============================================================================
+{{ if .install_codex -}}
+cask "codex"
 {{- end }}

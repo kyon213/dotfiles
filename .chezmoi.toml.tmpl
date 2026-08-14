@@ -11,6 +11,7 @@
 
 {{- $deepseek_api_key := promptStringOnce . "DEEPSEEK_API_KEY" "Enter your deepseek api key, return empty if don't set" -}}
 {{- $install_aider := promptBoolOnce . "install_aider" "Install and configure aider?" false }}
+{{- $install_codex := promptBoolOnce . "install_codex" "Install and configure codex?" false }}
 
 [data]
     # Identity Configuration
@@ -24,3 +25,4 @@
     # Agent Configuration
     DEEPSEEK_API_KEY = {{ $deepseek_api_key | quote }}
     install_aider = {{ $install_aider }}
+    install_codex = {{ $install_codex }}
