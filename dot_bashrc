@@ -122,7 +122,8 @@ fi
 # 	exec fish $LOGIN_OPTION
 # fi
 
-alias l='ls -ltra'
+alias l='ls -lhtra'
+
 if ! echo ":$PATH:" | grep -Fq ":$HOME/.local/bin:"; then
   export PATH=$HOME/.local/bin:$PATH
 fi
