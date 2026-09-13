@@ -46,44 +46,10 @@ brew bundle --file="/tmp/Brewfile.rendered"
 rm -rf /tmp/Brewfile.rendered
 
 # ------------------------------------------------------------------------------
-# 4. Node/NPM Global Sandbox Layer
-# ------------------------------------------------------------------------------
-{{ if .install_claude_code -}}
-echo "⚡ [NPM Setup] Auditing global runtime environment..."
-
-if ! command -v npm &>/dev/null; then
-  echo "❌ [NPM] Node/NPM execution engine not found. Ensure 'node' is declared in dot_Brewfile.tmpl!"
-  exit 1
-fi
-
-if [[ "$(npm config get prefix)" =~ ^/usr ]]; then
-  echo "⚠️ [NPM] Dangerous global prefix detected. Re-anchoring to Linuxbrew..."
-  npm config set prefix "/home/linuxbrew/.linuxbrew"
-fi
-
-if ! command -v claude &>/dev/null; then
-  echo "🤖 [Claude Code] Executing native global installation via isolated NPM..."
-  npm install -g @anthropic-ai/claude-code
-else
-  echo "🤖 [Claude Code] Claude Code is already managed under NPM global scope. Skipping."
-fi
-{{- end }}
-
-# ------------------------------------------------------------------------------
-# 5. Standalone Binaries Layer: Install custom tools directly to ~/.local/bin
+# 4. Standalone Binaries Layer: Install custom tools directly to ~/.local/bin
 # ------------------------------------------------------------------------------
 echo "🚀 [Binaries] Provisioning custom localized binary tools..."
 
 mkdir -p "${HOME}/.local/bin"
-
-{{ if .install_aider -}}
-echo "🤖 [Aider Config] Active installation enabled for this host."
-if [ ! -f "${HOME}/.local/bin/aider" ]; then
-  echo "🤖 [Aider] Installing Aider via official isolated shell script..."
-  curl -LsSf https://aider.chat/install.sh | sh
-else
-  echo "🤖 [Aider] Aider is already present at ~/.local/bin/aider. Skipping."
-fi
-{{- end }}
 
 echo "✨ [Bootstrap] Infrastructure successfully provisioned! Handing over to Chezmoi to deploy dotfiles..."

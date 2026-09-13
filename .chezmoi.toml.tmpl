@@ -9,11 +9,11 @@
 {{- $is_heavy := promptBoolOnce . "is_heavy_workstation" "Is this a heavy developer workstation? (install LLVM/LLD etc.)" false -}}
 {{- $enable_blog_debug := promptBoolOnce . "enable_blog_debug" "Enable blog website local debugging? (install hugo/gh etc.)" false -}}
 
-{{- $deepseek_api_key := promptStringOnce . "DEEPSEEK_API_KEY" "Enter your deepseek api key, return empty if don't set" -}}
-{{- $install_aider := promptBoolOnce . "install_aider" "Install and configure aider?" false }}
-{{- $install_codex := promptBoolOnce . "install_codex" "Install and configure codex?" false }}
-{{- $install_cc_switch:= promptBoolOnce . "install_cc_switch" "Install and configure CC-Switch-CLI?" false }}
-{{- $install_claude_code := promptBoolOnce . "install_claude_code" "Install and configure claude code?" false }}
+{{- $dotfiles_base := promptStringOnce . "dotfiles_base" "dotfiles install base (empty = default per-machine install; fill a shared path to enable shared deployment)" "" -}}
+{{- $internet_access := promptBoolOnce . "internet_access" "Does this machine have internet access? (yes = online, no = offline; drives mise auto-install)" true -}}
+{{ if $dotfiles_base }}
+sourceDir = "{{ $dotfiles_base }}/.local/share/chezmoi"
+{{ end }}
 
 [data]
     # Identity Configuration
@@ -24,9 +24,7 @@
     is_heavy_workstation = {{ $is_heavy }}
     enable_blog_debug = {{ $enable_blog_debug }}
 
-    # Agent Configuration
-    DEEPSEEK_API_KEY = {{ $deepseek_api_key | quote }}
-    install_aider = {{ $install_aider }}
-    install_codex = {{ $install_codex }}
-    install_cc_switch = {{ $install_cc_switch }}
-    install_claude_code = {{ $install_claude_code }}
+    # Shared Deployment (empty dotfiles_base = default per-machine install)
+    dotfiles_base = {{ $dotfiles_base | quote }}
+    # Internet access (drives mise auto-install switches)
+    internet_access = {{ $internet_access }}

@@ -25,13 +25,3 @@ brew "mold"
 brew "gh"
 brew "hugo"
 {{- end }}
-
-# ==============================================================================
-# Conditional AI Agent Packages
-# ==============================================================================
-{{ if .install_codex -}}
-cask "codex"
-{{- end }}
-{{ if .install_cc_switch -}}
-brew "cc-switch-cli"
-{{- end }}
