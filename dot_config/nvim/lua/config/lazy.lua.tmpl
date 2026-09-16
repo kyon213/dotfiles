@@ -22,9 +22,7 @@ require("lazy").setup({
     {{ if .is_heavy_workstation -}}
       { import = "lazyvim.plugins.extras.lang.clangd" },
     {{ end -}}
-    {{ if .enable_blog_debug -}}
-      { import = "lazyvim.plugins.extras.lang.markdown" },
-    {{ end -}}
+    { import = "lazyvim.plugins.extras.lang.markdown" },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -39,7 +37,7 @@ require("lazy").setup({
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
-    enabled = true, -- check for plugin updates periodically
+    enabled = {{ .internet_access }}, -- check for plugin updates only when online
     notify = false, -- notify on update
   }, -- automatically check for plugin updates
   performance = {

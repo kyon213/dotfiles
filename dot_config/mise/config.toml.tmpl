@@ -26,6 +26,22 @@ ccache = "latest"
 # ---- LSP servers ----
 "github:clangd/clangd" = "latest"
 lua-language-server = "latest"
+marksman = "latest"
+
+# ---- Formatting & linting ----
+prettier = "latest"
+markdownlint-cli2 = "latest"
+# shfmt = static Go binary (glibc-safe); markdown-toc has no mise registry entry -> npm backend.
+"aqua:mvdan/sh" = "latest"
+"npm:markdown-toc" = "latest"
+
+# ---- Neovim (tree-sitter CLI) ----
+# glibc-aware pin: GitHub binaries >=0.25 need glibc>=2.39 (Ubuntu 24.04 build);
+# older hosts (e.g. glibc 2.34) get the last compatible release instead.
+# LazyVim compiles treesitter parsers with this CLI; a broken CLI => "Installed 0/N".
+# NOTE: output() appends a trailing newline, so the regex must not anchor on $.
+{{ $glibc := output "getconf" "GNU_LIBC_VERSION" }}
+"aqua:tree-sitter/tree-sitter" = "{{ if $glibc | regexMatch "^glibc (2\\.(39|[4-9][0-9])|[3-9]\\.|[1-9][0-9]\\.)" }}latest{{ else }}0.24.3{{ end }}"
 
 # ---- AI agent harness ----
 oh-my-pi = { version = "latest", rename_exe = "omp" }
@@ -42,6 +58,7 @@ git = "latest"
 # ---- Heavy workstation extras (LLVM builds) ----
 mold = "latest"
 clang = "latest"
+clang-format = "latest"
 {{ end }}
 
 {{ if .enable_blog_debug }}
