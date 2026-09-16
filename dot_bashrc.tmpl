@@ -124,8 +124,25 @@ fi
 
 alias l='ls -lhtra'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"
-
+# ~/.local/bin on PATH (philosophy: hand-placed binaries layer) + mise env
+{{ if .dotfiles_base }}
+export PATH="{{ .dotfiles_base }}/.local/bin:$PATH"
+export MISE_DATA_DIR="{{ .dotfiles_base }}/.local/share/mise"
+export MISE_CONFIG_DIR="{{ .dotfiles_base }}/.config/mise"
+{{ else }}
 if ! echo ":$PATH:" | grep -Fq ":$HOME/.local/bin:"; then
   export PATH=$HOME/.local/bin:$PATH
 fi
+{{ end }}
+
+{{ if not .internet_access }}
+export MISE_AUTO_INSTALL=false
+export MISE_NOT_FOUND_AUTO_INSTALL=false
+{{ end }}
+
+{{ if .dotfiles_base }}
+eval "$("{{ .dotfiles_base }}/.local/bin/mise" activate bash)"
+{{ else }}
+command -v mise >/dev/null 2>&1 && eval "$(mise activate bash)"
+{{ end }}
+

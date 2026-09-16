@@ -1,4 +1,9 @@
 #!/usr/bin/env fish
+{{ $shell := output "sh" "-c" "getent passwd \"$(id -u)\" | cut -d: -f7" }}
+{{ if $shell | contains "fish" }}
+# Login shell is already fish; nothing to change.
+exit 0
+{{ else }}
 # ==============================================================================
 # Chezmoi Lifecycle Script: Run ONCE After Dotfiles Deployment
 # Target: System Default Login Shell Provisioning
@@ -29,3 +34,5 @@ else
             echo "⏭️  [Shell] Change skipped by user. Keeping your current default shell."
     end
 end
+
+{{ end }}

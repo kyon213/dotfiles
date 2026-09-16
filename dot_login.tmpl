@@ -1,0 +1,18 @@
+# tcsh login shell: exec mise-managed fish; fall back to bash if unavailable.
+{{ if .dotfiles_base }}
+if ( $?prompt ) then
+  if ( -x {{ .dotfiles_base }}/.local/share/mise/installs/github-fish-shell-fish-shell/latest/fish ) then
+    exec {{ .dotfiles_base }}/.local/share/mise/installs/github-fish-shell-fish-shell/latest/fish
+  else if ( -x /usr/bin/bash ) then
+    exec /usr/bin/bash
+  endif
+endif
+{{ else }}
+if ( $?prompt ) then
+  if ( -x $HOME/.local/share/mise/installs/github-fish-shell-fish-shell/latest/fish ) then
+    exec $HOME/.local/share/mise/installs/github-fish-shell-fish-shell/latest/fish
+  else if ( -x /usr/bin/bash ) then
+    exec /usr/bin/bash
+  endif
+endif
+{{ end }}

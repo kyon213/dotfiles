@@ -30,6 +30,12 @@ LICENSE
 
 .config/systemd/
 
+# .login is csh-specific; deploy only on csh-family login shells.
+{{ $shell := output "sh" "-c" "getent passwd \"$(id -u)\" | cut -d: -f7" }}
+{{ if not ($shell | contains "csh") }}
+.login
+{{ end }}
+
 # LLVM research build configuration is only deployed to heavy workstations.
 {{ if not .is_heavy_workstation }}
 .config/llvm/
