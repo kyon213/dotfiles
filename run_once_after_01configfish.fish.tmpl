@@ -11,7 +11,14 @@ exit 0
 
 echo "🛡️ [System] Verifying system default shell configurations..."
 
+# Sudo gate: automatic chsh needs passwordless sudo.
 set -l fish_path (which fish)
+if not command -v sudo >/dev/null 2>&1; or not sudo -n true >/dev/null 2>&1
+    echo "ℹ️  [Shell] Sudo unavailable; skipping automatic chsh."
+    echo "    Fish is already started via .login / .bashrc (chezmoi-managed dotfiles)."
+    echo "    To change the login shell manually (on a machine with sudo): sudo chsh -s $fish_path"
+    exit 0
+end
 
 if test "$SHELL" = "$fish_path"
     echo "✅ [Shell] Fish is already established as your default system login shell."

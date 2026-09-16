@@ -52,6 +52,10 @@ if status is-interactive
       fzf --fish | source
     end
 
+    if command -q zoxide
+      zoxide init fish | source
+    end
+
     # alias proxy='eval $(mihoro proxy export); echo "Proxy On"'
     # workaround: mihoro proxy export does not split lines, so rewrite
     # "set -gx" separators manually before sourcing
