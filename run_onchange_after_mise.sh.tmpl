@@ -1,0 +1,29 @@
+{{ if .internet_access -}}
+#!/bin/bash
+# ==============================================================================
+# Install user-space tools via mise. Re-runs automatically when the tool list
+# changes: the config.toml hash below ties this script to
+# dot_config/mise/config.toml.tmpl (run_onchange semantics = own content change).
+# ==============================================================================
+# config.toml hash: {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
+set -euo pipefail
+{{ if .dotfiles_base }}
+# Shared deployment: render the versioned tool list onto the shared disk,
+# then install. (The shared config.toml is template-owned; ad-hoc `mise use -g`
+# additions are clobbered on re-render - add them to the template instead.)
+BASE={{ .dotfiles_base }}
+export MISE_DATA_DIR="$BASE/.local/share/mise"
+export MISE_CONFIG_DIR="$BASE/.config/mise"
+mkdir -p "$MISE_CONFIG_DIR"
+chezmoi execute-template < {{ .chezmoi.sourceDir | quote }}/dot_config/mise/config.toml.tmpl > "$MISE_CONFIG_DIR/config.toml"
+"$BASE/.local/bin/mise" install
+"$BASE/.local/bin/mise" ls
+{{ else }}
+# Per-machine: config.toml already deployed to ~/.config/mise by chezmoi.
+# mise presence is guaranteed by run_once_before_00install; only make sure the
+# default install path is on PATH (fresh auto-install edge, idempotent).
+export PATH="$HOME/.local/bin:$PATH"
+mise install
+mise ls
+{{ end }}
+{{- end }}

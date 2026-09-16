@@ -1,0 +1,51 @@
+# Versioned mise tool list (chezmoi-managed; replaces the former Brewfile).
+# Deployed to ~/.config/mise/config.toml (per-machine) or rendered onto the
+# shared disk in shared-deployment mode (see run_onchange_after_mise.sh.tmpl).
+[tools]
+# ---- Shell & terminal ----
+"github:fish-shell/fish-shell" = "latest"
+tmux = "latest"
+neovim = "latest"
+bat = "latest"
+eza = "latest"
+fzf = "latest"
+fd = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+lazygit = "latest"
+
+# ---- Languages & runtimes ----
+node = "latest"
+stylua = "latest"
+
+# ---- Build toolchain ----
+cmake = "latest"
+ninja = "latest"
+ccache = "latest"
+
+# ---- LSP servers ----
+"github:clangd/clangd" = "latest"
+lua-language-server = "latest"
+
+# ---- AI agent harness ----
+oh-my-pi = { version = "latest", rename_exe = "omp" }
+
+# ---- Tool manager ----
+chezmoi = "latest"
+
+{{- if not (output "bash" "-c" "git help worktree >/dev/null 2>&1 && echo ok") }}
+# ---- Git (capability probe: system git lacks worktree) ----
+git = "latest"
+{{- end }}
+
+{{ if .is_heavy_workstation }}
+# ---- Heavy workstation extras (LLVM builds) ----
+mold = "latest"
+clang = "latest"
+{{ end }}
+
+{{ if .enable_blog_debug }}
+# ---- Blog debugging ----
+gh = "latest"
+hugo = "latest"
+{{ end }}

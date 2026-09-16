@@ -20,6 +20,12 @@ LICENSE
 .config/mihoro.toml
 .config/mihomo/
 
+# In shared-deployment mode the mise config lives on the shared disk
+# (rendered by run_onchange_after_mise.sh.tmpl); skip the redundant home copy.
+{{ if .dotfiles_base }}
+.config/mise/config.toml
+{{ end }}
+
 .config/nvim/lazy-lock.json
 
 .config/systemd/
