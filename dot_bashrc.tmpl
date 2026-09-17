@@ -138,7 +138,6 @@ fi
 {{ if not .internet_access }}
 export MISE_AUTO_INSTALL=false
 export MISE_NOT_FOUND_AUTO_INSTALL=false
-export MISE_OFFLINE=true  # 完全离线：mise 不联网查更新（内网没网会卡住）
 {{ end }}
 
 {{ if .dotfiles_base }}
