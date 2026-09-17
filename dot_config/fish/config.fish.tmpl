@@ -22,6 +22,7 @@ set -gx MISE_CONFIG_DIR {{ .dotfiles_base }}/.config/mise
 {{ if not .internet_access }}
 set -gx MISE_AUTO_INSTALL false
 set -gx MISE_NOT_FOUND_AUTO_INSTALL false
+set -gx MISE_OFFLINE true # 完全离线：mise 不联网查更新（内网没网会卡住）
 {{ end }}
 
 if command -q mise
