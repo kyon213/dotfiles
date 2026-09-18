@@ -1,0 +1,30 @@
+symbolPreset: nerd
+composer:
+  shape: band
+theme:
+  light: light-catppuccin
+  dark: dark-catppuccin
+setupVersion: 2
+modelRoles:
+  default: arm-base/deepseek-v4-flash:high
+  review: arm-base/deepseek-v4-pro:high
+  tiny: arm-base/deepseek-v4-flash
+  smol: arm-base/deepseek-v4-flash
+memory:
+  backend: mnemopi
+mnemopi:
+  scoping: global
+  llmMode: smol
+autolearn:
+  enabled: true
+  autoContinue: true
+providers:
+  memoryModel: online
+edit:
+  mode: hashline
+hideThinkingBlock: true
+# 网络开关由 chezmoi 变量 internet_access 驱动（外网 true / 内网 false）
+startup:
+  checkUpdate: {{ if .internet_access }}true{{ else }}false{{ end }}
+marketplace:
+  autoUpdate: {{ if .internet_access }}notify{{ else }}off{{ end }}
