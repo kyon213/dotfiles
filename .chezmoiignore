@@ -7,6 +7,9 @@
 README.md
 LICENSE
 
+# tpm plugin .git dirs carry clone identity in logs; never track them.
+dot_tmux/plugins/**/dot_git/**
+
 # Package manager lock files or local development notes
 *.log
 
