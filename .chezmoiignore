@@ -43,3 +43,6 @@ dot_tmux/plugins/**/dot_git/**
 {{ if not .is_heavy_workstation }}
 .config/llvm/
 {{ end }}
+
+# git-only ignore file (chezmoi source repo); not deployed to home
+.gitignore

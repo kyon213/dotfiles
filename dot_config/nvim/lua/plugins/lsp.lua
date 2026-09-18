@@ -34,7 +34,13 @@ return {
       -- lua-language-server via mise (shared disk), not mason
       opts.servers.lua_ls = opts.servers.lua_ls or {}
       opts.servers.lua_ls.mason = false
-      opts.servers.lua_ls.cmd = { "lua-language-server" }
+      -- LuaLS defaults log/cache to its install dir (shared disk, read-only on
+      -- internal -> startup crash EACCES). Redirect via CLI arg --logpath (read
+      -- at startup; settings.Lua.log.path arrives too late via didChangeConfiguration).
+      opts.servers.lua_ls.cmd = {
+        "lua-language-server",
+        "--logpath=" .. vim.fn.stdpath("state") .. "/lua-language-server",
+      }
 
       -- marksman via mise (shared disk), not mason
       opts.servers.marksman = opts.servers.marksman or {}
