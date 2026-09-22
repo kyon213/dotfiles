@@ -42,10 +42,10 @@ if status is-interactive
     alias l='ls -lhtra'
     alias reasonix='npx --yes reasonix'
 
-    # Tool aliases (eza/bat/lazygit are unconditional tools)
+    # Tool aliases (eza/bat/lazygit are unconditional tools; eza renders icons)
     alias lg lazygit
-    alias ls eza
-    alias ll "eza -la"
+    alias ls "eza --icons"
+    alias ll "eza -la --icons"
     alias cat bat
 
     if command -q fzf
