@@ -3,11 +3,12 @@
 # This file is interpreted by Chezmoi during 'chezmoi init' to bake local state.
 # ==============================================================================
 
+{{- $environment := promptChoiceOnce . "environment" "Which config environment is this machine?" (list "armc" "personal") "personal" -}}
+
 {{- $git_name := promptStringOnce . "git_name" "Enter your global Git user name" -}}
 {{- $git_email := promptStringOnce . "git_email" "Enter your global Git email address" -}}
 
 {{- $is_heavy := promptBoolOnce . "is_heavy_workstation" "Is this a heavy developer workstation? (install LLVM/LLD etc.)" false -}}
-{{- $enable_blog_debug := promptBoolOnce . "enable_blog_debug" "Enable blog website local debugging? (install hugo/gh etc.)" false -}}
 
 {{- $dotfiles_base := promptStringOnce . "dotfiles_base" "dotfiles install base (empty = default per-machine install; fill a shared path to enable shared deployment)" "" -}}
 {{- $internet_access := promptBoolOnce . "internet_access" "Does this machine have internet access? (yes = online, no = offline; drives mise auto-install)" true -}}
@@ -16,13 +17,15 @@ sourceDir = "{{ $dotfiles_base }}/.local/share/chezmoi"
 {{ end }}
 
 [data]
+    # Config environment (armc = ARMC env features; personal = default)
+    environment = {{ $environment | quote }}
+
     # Identity Configuration
     git_name = {{ $git_name | quote }}
     git_email = {{ $git_email | quote }}
 
     # Project Configuration
     is_heavy_workstation = {{ $is_heavy }}
-    enable_blog_debug = {{ $enable_blog_debug }}
 
     # Shared Deployment (empty dotfiles_base = default per-machine install)
     dotfiles_base = {{ $dotfiles_base | quote }}

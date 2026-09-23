@@ -64,8 +64,8 @@ attempt; machines with access simply keep mise's defaults (auto-install on).
 
 ### Other configurable switches
 
+- `environment`: config environment (`armc` = ARMC dev env features; `personal` = default). Personal machines additionally get `hugo`/`gh` for local blog debugging.
 - `is_heavy_workstation`: install LLVM/LLD etc. on capable machines.
-- `enable_blog_debug`: install `hugo`/`gh` for local blog debugging.
 
 ## Usage
 

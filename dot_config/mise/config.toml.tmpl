@@ -61,8 +61,8 @@ clang = "latest"
 clang-format = "latest"
 {{ end }}
 
-{{ if .enable_blog_debug }}
-# ---- Blog debugging ----
+{{ if eq (get . "environment") "personal" }}
+# ---- Blog debugging (personal machines) ----
 gh = "latest"
 hugo = "latest"
 {{ end }}
