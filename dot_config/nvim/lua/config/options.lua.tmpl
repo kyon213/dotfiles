@@ -5,6 +5,14 @@
 -- Keep removable paths (e.g. the tmux capture file under /tmp) out of the shada
 -- file-name registers, and remember more marks than the nvim default.
 vim.opt.shada = "!,'500,<50,s10,h,r/tmp/,r/private/"
+
+-- nvim does not detect LLVM TableGen sources; map them so conform's tablegen
+-- formatter (and its clang-format column limit) applies.
+vim.filetype.add({
+  extension = {
+    td = "tablegen",
+  },
+})
 {{- if eq .environment "armc" }}
 
 -- armc: LazyVim disables the system clipboard in ssh sessions; re-enable it.

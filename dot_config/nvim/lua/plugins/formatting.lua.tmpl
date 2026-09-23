@@ -35,11 +35,11 @@ return {
 
         args = function(_, ctx)
           local ext = vim.fn.fnamemodify(ctx.filename, ":e")
-          local style = "{ColumnLimit: 80, AllowShortIfStatementsOnASingleLine: WithoutElse}"
+          local is_tablegen = ext == "td" or ctx.filetype == "tablegen"
 
-          if ext == "td" or ctx.filetype == "tablegen" then
-            style = "{ColumnLimit: 80, AllowShortIfStatementsOnASingleLine: WithoutElse}"
-          end
+          -- armc: 100 (c/cpp) / 120 (tablegen); personal: 80 for both.
+          local column_limit = {{ if eq .environment "armc" }}is_tablegen and 120 or 100{{ else }}80{{ end }}
+          local style = "{ColumnLimit: " .. column_limit .. ", AllowShortIfStatementsOnASingleLine: WithoutElse}"
 
           local args = {
             "--assume-filename=" .. ctx.filename,
