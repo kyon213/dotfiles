@@ -2,3 +2,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 vim.opt.colorcolumn = "80"
+{{- if eq .environment "armc" }}
+
+-- armc: LazyVim disables the system clipboard in ssh sessions; re-enable it.
+-- The terminal has no OSC 52, so nvim's provider chain picks xclip.
+vim.opt.clipboard = "unnamedplus"
+{{- end }}
