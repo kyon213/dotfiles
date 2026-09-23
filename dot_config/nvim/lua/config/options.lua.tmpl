@@ -1,10 +1,20 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
-vim.opt.colorcolumn = "80"
+
+-- Keep removable paths (e.g. the tmux capture file under /tmp) out of the shada
+-- file-name registers, and remember more marks than the nvim default.
+vim.opt.shada = "!,'500,<50,s10,h,r/tmp/,r/private/"
 {{- if eq .environment "armc" }}
 
 -- armc: LazyVim disables the system clipboard in ssh sessions; re-enable it.
 -- The terminal has no OSC 52, so nvim's provider chain picks xclip.
 vim.opt.clipboard = "unnamedplus"
+
+-- armc: ARMC sources use the .cps extension for C++.
+vim.filetype.add({
+  extension = {
+    cps = "cpp",
+  },
+})
 {{- end }}
