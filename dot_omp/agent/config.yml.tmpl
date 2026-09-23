@@ -6,10 +6,12 @@ theme:
   dark: dark-catppuccin
 setupVersion: 2
 modelRoles:
-  default: arm-base/deepseek-v4-flash:high
-  review: arm-base/deepseek-v4-pro:high
-  tiny: arm-base/deepseek-v4-flash
-  smol: arm-base/deepseek-v4-flash
+  default: arm-base/deepseek-v4.1-flash:high
+  review: arm-base/deepseek-v4.1-flash:max
+  tiny: arm-base/deepseek-v4.1-flash:auto
+  smol: arm-base/deepseek-v4.1-flash:high
+  plan: arm-base/deepseek-v4.1-flash:max
+  vision: arm-base/deepseek-v4.1-flash:auto
 memory:
   backend: mnemopi
 mnemopi:
@@ -23,7 +25,6 @@ providers:
 edit:
   mode: hashline
 hideThinkingBlock: true
-# 网络开关由 chezmoi 变量 internet_access 驱动（外网 true / 内网 false）
 startup:
   checkUpdate: {{ if .internet_access }}true{{ else }}false{{ end }}
 marketplace:
