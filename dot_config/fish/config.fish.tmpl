@@ -39,13 +39,13 @@ if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
 
     alias v='nvim'
-    alias l='ls -lhtra'
     alias reasonix='npx --yes reasonix'
 
     # Tool aliases (eza/bat/lazygit are unconditional tools; eza renders icons)
+    # eza: --sort=date sorts by mtime, oldest first
     alias lg lazygit
     alias ls "eza --icons=auto"
-    alias ll "eza -la --icons=auto"
+    alias ll "eza -la --icons=auto --sort=date"
     alias cat bat
 
     if command -q fzf
@@ -53,7 +53,9 @@ if status is-interactive
     end
 
     if command -q zoxide
-      zoxide init fish | source
+      # --cmd cd: zoxide's cd is a superset (no args -> home, - -> previous dir,
+      # existing dir -> direct cd, otherwise fuzzy); z/zi become cd/cdi.
+      zoxide init fish --cmd cd | source
     end
 
     # alias proxy='eval $(mihoro proxy export); echo "Proxy On"'
