@@ -1,0 +1,7 @@
+# bat: Catppuccin Latte ships with bat (>= 0.25), so no theme file is vendored.
+# bat resolves themes by the name inside the file, hence the quoted name.
+# Plain style + no pager (equivalent to `-pp`) keep `cat` (alias -> bat)
+# cat-like; decorations can still be requested per call (e.g. `bat -n`).
+--theme="Catppuccin Latte"
+# --style=plain
+# --paging=never
