@@ -1,15 +1,26 @@
 [user]
-	name = {{ .git_name }}
-	email = {{ .git_email }}
+  name = {{ .git_name }}
+  email = {{ .git_email }}
 [include]
-	path = ~/.config/git/gitalias.txt
+  path = ~/.config/git/gitalias.txt
+  path = ~/.config/git/catppuccin-delta.gitconfig
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [core]
-	editor = nvim
+  editor = nvim
+  pager = delta
   quotepath = false
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  features = catppuccin-latte
+  navigate = true
+  line-numbers = true
+[merge]
+  conflictStyle = zdiff3
 [diff]
   tool = nvimdiff
+  colorMoved = default
 [difftool]
   prompt = false
 [difftool "nvimdiff"]
