@@ -1,0 +1,10 @@
+# ripgrep defaults, applied to every `rg` invocation via RIPGREP_CONFIG_PATH.
+# Note: this variable is inherited by anything that runs ripgrep, including
+# nvim's snacks picker and the bundled ripgrep used by agents - --hidden means
+# those searches now also see hidden files.
+--smart-case
+--hidden
+--glob=!.git/*
+--glob=!node_modules/*
+--max-columns=200
+--max-columns-preview

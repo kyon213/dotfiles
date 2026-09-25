@@ -7,6 +7,10 @@ set -gx LANG en_US.UTF-8
 set -gx LESSCHARSET utf-8
 set -gx EDITOR nvim
 
+# ripgrep: default flags live in ~/.config/ripgrep/config (chezmoi-managed).
+# Also inherited by nvim's snacks picker and the ripgrep bundled with agents.
+set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/config
+
 # Setup PATH, MANPATH, INFOPATH, and other variables
 if test -d "$HOME/.local/bin"
     fish_add_path --global --move "$HOME/.local/bin"

@@ -10,21 +10,33 @@
   editor = nvim
   pager = delta
   quotepath = false
-[interactive]
-  diffFilter = delta --color-only
-[delta]
-  features = catppuccin-latte
-  navigate = true
-  line-numbers = true
-[merge]
-  conflictStyle = zdiff3
+[branch]
+  sort = -committerdate
 [diff]
   tool = nvimdiff
+  algorithm = histogram
   colorMoved = default
 [difftool]
   prompt = false
 [difftool "nvimdiff"]
   cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[fetch]
+  prune = true
+[help]
+  autocorrect = prompt
+[interactive]
+  diffFilter = delta --color-only
+  singleKey = true
+[merge]
+  conflictStyle = zdiff3
+[pull]
+  rebase = true
+[rerere]
+  enabled = true
+[delta]
+  features = catppuccin-latte
+  navigate = true
+  line-numbers = true
 [i18n "commit"]
   encoding = utf-8
 [i18n]
