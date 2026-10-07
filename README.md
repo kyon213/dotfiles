@@ -17,6 +17,7 @@ layers handle what user-space tools cannot.
 | **~/.local/bin** | One-off or custom-built artifacts not in any registry | `wezterm` (static), self-compiled tools | **Minimal**: only hand-placed binaries; everything registry-able goes to mise (shared mode: `<dotfiles_base>/.local/bin`) |
 | **Docker** | Legacy or system-bound environments and long-running services that user-space isolation cannot reproduce | legacy CUDA stacks, daemonized services | **Fully Enclosed Sandbox**: ephemeral execution, zero host contamination |
 | **GUI / Desktop** | Desktop applications, outside mise's CLI scope | browsers, VS Code | **Distro packages first; Flatpak / AppImage / portable tarballs when no sudo** |
+| **Fonts / user assets** | Typefaces for the terminal and desktop apps, per machine | `CaskaydiaCove NF`, LXGW WenKai GB, WenYuan Rounded | **Manual, checksum-pinned download** into `~/.local/share/fonts/<Family>/`: not in this repository (size), not via APT (unpackaged or outdated), not via mise (no font registry) — see [Fonts](#fonts) |
 
 <!-- markdownlint-enable MD013 -->
 
@@ -107,6 +108,23 @@ enables shared deployment: press Enter for the default per-machine install, or
 type a path on a shared disk (e.g. an existing `dotfiles` directory there) to
 route tools, mise data and the chezmoi source onto that disk as described in
 [Features](#features).
+
+## Fonts
+
+Terminal typefaces are user assets: they live per machine in
+`~/.local/share/fonts/<Family>/`, they are not stored in this repository
+(size), not shipped by APT (unpackaged or outdated) and not managed by mise
+(no font registry). `dot_config/kitty/kitty.conf.tmpl` renders a `symbol_map`
+line so that Latin text and Nerd icons keep coming from `font_family` while
+Han, kana and full-width punctuation are drawn by a separate family: English
+and Chinese can therefore use different typefaces at the same time.
+
+| Role | Family | Source |
+| --- | --- | --- |
+| CJK in the terminal | `LXGW WenKai Mono GB` | [lxgw/LxgwWenKaiGB](https://github.com/lxgw/LxgwWenKaiGB) |
+| CJK in editors and office documents | `LXGW WenKai GB` | same release |
+| CJK rounded alternative (optional) | `WenYuan Rounded SC VF` | [takushun-wu/WenYuanFonts](https://github.com/takushun-wu/WenYuanFonts) |
+
 
 ## My Workflow Packages
 

@@ -6,12 +6,21 @@ theme:
   dark: dark-catppuccin
 setupVersion: 2
 modelRoles:
+  {{- if eq .environment "armc" }}
   default: arm-base/deepseek-v4.1-flash:high
   review: arm-base/deepseek-v4.1-flash:max
-  tiny: arm-base/deepseek-v4.1-flash:auto
+  tiny: arm-base/deepseek-v4.1-flash:low
   smol: arm-base/deepseek-v4.1-flash:high
   plan: arm-base/deepseek-v4.1-flash:max
-  vision: arm-base/deepseek-v4.1-flash:auto
+  vision: arm-base/deepseek-v4.1-flash:high
+  {{ else }}
+  default: deepseek/deepseek-flash:high
+  review: deepseek/deepseek-flash:max
+  tiny: deepseek/deepseek-flash:low
+  smol: deepseek/deepseek-flash:high
+  plan: deepseek/deepseek-flash:max
+  vision: deepseek/deepseek-flash:high
+  {{- end}}
 memory:
   backend: mnemopi
 mnemopi:

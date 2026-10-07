@@ -1,0 +1,44 @@
+# BEGIN_KITTY_THEME
+# Catppuccin-Latte
+include current-theme.conf
+# END_KITTY_THEME
+
+# font
+font_size 14
+font_family        CaskaydiaCove Nerd Font Mono
+# font_family        SauceCodePro NFM Medium
+# bold_font          SauceCodePro NFM Bold
+# italic_font        SauceCodePro NFM Medium Italic
+# bold_italic_font   SauceCodePro NFM Bold Italic
+
+# CJK: Han, kana and full-width punctuation are drawn by a separate family while
+# Latin text and Nerd icons keep coming from font_family above. The mapping is
+# emitted only on machines where that family is actually installed (see the
+# Fonts section in README.md): symbol_map ranges bypass kitty's fallback chain,
+# so an unconditional mapping would show .notdef boxes wherever it is missing.
+#   LXGW WenKai Mono GB -- https://github.com/lxgw/LxgwWenKaiGB
+#   WenYuanRoundedSCVF (optional) -- https://github.com/takushun-wu/WenYuanFonts
+{{- if (output "sh" "-c" "command -v fc-list >/dev/null 2>&1 && fc-list 2>/dev/null | grep -qi 'LXGW WenKai Mono GB' && echo yes || true") }}
+symbol_map U+2E80-U+2EFF,U+3000-U+303F,U+3040-U+30FF,U+31C0-U+31EF,U+3200-U+4DBF,U+4E00-U+9FFF,U+F900-U+FAFF,U+FE30-U+FE4F,U+FF00-U+FFEF,U+20000-U+2FA1F WenYuanRoundedSCVF
+{{- end }}
+
+# window
+hide_window_decorations titlebar-only
+window_padding_width    10
+background_opacity      1
+background_blur         0
+remember_window_size    yes
+
+# tab bar
+tab_bar_edge        top
+tab_bar_style       powerline
+tab_powerline_style slanted
+
+# general key mapping
+macos_option_as_alt yes
+
+# vim key mapping
+# map cmd+s       send_text all \e:w\r
+# map cmd+p       send_text all :Telescope find_files\r
+# map cmd+shift+f send_text all :Telescope live_grep\r
+# map cmd+b       send_text all :Neotree toggle\r
