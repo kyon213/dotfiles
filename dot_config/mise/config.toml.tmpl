@@ -1,6 +1,18 @@
 # Versioned mise tool list (chezmoi-managed; replaces the former Brewfile).
 # Deployed to ~/.config/mise/config.toml (per-machine) or rendered onto the
 # shared disk in shared-deployment mode (see run_onchange_after_mise.sh.tmpl).
+{{ if eq (get . "environment") "armc" -}}
+[settings]
+# ARMC hosts run off one shared (NFS) mise install tree, so mise's default
+# deferred auto-prune is unsafe here: `mise upgrade` puts each replaced version
+# in tool-purgatory.json with remove_after = now + upgrade.prune_after (24h),
+# and the first config-loading mise command after that deadline silently
+# uninstalls it (e.g. a plain `mise outdated` printing `mise uninstall ...`) -
+# possibly a version another host/session still points at. Keep them instead;
+# clean up deliberately with `mise prune` when the tree needs to shrink.
+upgrade.auto_prune = false
+
+{{ end -}}
 [tools]
 # ---- Shell & terminal ----
 "github:fish-shell/fish-shell" = "latest"

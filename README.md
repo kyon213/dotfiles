@@ -65,7 +65,7 @@ attempt; machines with access simply keep mise's defaults (auto-install on).
 
 ### Other configurable switches
 
-- `environment`: config environment (`armc` = ARMC dev env features; `personal` = default). Personal machines additionally get `hugo`/`gh` for local blog debugging.
+- `environment`: config environment (`armc` = ARMC dev env features; `personal` = default). Personal machines additionally get `hugo`/`gh` for local blog debugging. ARMC machines also set `upgrade.auto_prune = false` in the rendered mise config: they share one NFS install tree, and mise's default deferred auto-prune (versions replaced by `mise upgrade` are deleted ~24h later by whichever config-loading mise command runs next, e.g. a plain `mise outdated`) could remove a version another host still points at.
 - `is_heavy_workstation`: install LLVM/LLD etc. on capable machines.
 
 ## Usage
