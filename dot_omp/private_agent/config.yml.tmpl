@@ -36,3 +36,5 @@ startup:
   checkUpdate: {{ if .internet_access }}true{{ else }}false{{ end }}
 marketplace:
   autoUpdate: {{ if .internet_access }}notify{{ else }}off{{ end }}
+bashInterceptor:
+  enabled: true
